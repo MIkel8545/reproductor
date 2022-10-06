@@ -1,13 +1,17 @@
 package com.mike.reproductor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.borutsky.neumorphism.NeumorphicFrameLayout;
@@ -21,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnlike ;
     private ImageButton btnadd ;
     private ImageButton btnshufle ; */
+    private ImageView img;
+    private TextView alb;
+    private TextView can;
+    private TextView yea;
     ListView listSong;
 
     @Override
@@ -28,7 +36,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.album);
 
+
+        MiniReproductor mr = new MiniReproductor();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.frag_placeholder, mr, "");
+        ft.commit();
+
+
         listSong = findViewById(R.id.listView_canciones);
+        img = findViewById(R.id.imageView);
+        alb = findViewById(R.id.textView_album);
+        can = findViewById(R.id.textView_canciones);
+        yea = findViewById(R.id.textView_year);
+
+
+
+        Album album = new Album(R.drawable.item1,"IMPERA", "Ghost", "12 canciones", " Album 2022");
+
+        img.setImageResource(album.getImagen());
+        alb.setText(album.getNombreAlbum());
+        can.setText(album.getCanciones());
+        yea.setText(album.getYear());
+
 
         ArrayList<Song> lista = new ArrayList<>();
         lista.add(new Song(R.drawable.item1, "Imperium", "Ghost"));
